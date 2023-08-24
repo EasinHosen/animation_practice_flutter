@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:animation_practice/pages/example_three_page.dart';
 import 'package:flutter/material.dart';
 
 enum CircleSide {
@@ -237,7 +238,7 @@ class _ExampleTwoPageState extends State<ExampleTwoPage>
             ),
             ElevatedButton(
                 onPressed: () {
-                  // Navigator.pushNamed(context, AnimationTwoPage.routeName);
+                  Navigator.pushNamed(context, ExampleThreePage.routeName);
                 },
                 child: const Text('Next'))
           ],
