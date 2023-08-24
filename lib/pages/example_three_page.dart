@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import 'example_four_page.dart';
+
 class ExampleThreePage extends StatefulWidget {
   const ExampleThreePage({super.key});
   static const String routeName = '/example_three_page';
@@ -184,7 +186,7 @@ class _ExampleThreePageState extends State<ExampleThreePage>
             ),
             ElevatedButton(
                 onPressed: () {
-                  // Navigator.pushNamed(context, ExampleThreePage.routeName);
+                  Navigator.pushNamed(context, ExampleFourPage.routeName);
                 },
                 child: const Text('Next'))
           ],
