@@ -46,6 +46,10 @@ class HalfClipper extends CustomClipper<Path> {
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
 }
 
+extension on VoidCallback {
+  Future<void> delayed(Duration duration) => Future.delayed(duration, this);
+}
+
 class ExampleTwoPage extends StatefulWidget {
   const ExampleTwoPage({super.key});
   static const String routeName = '/example_two_page';
@@ -55,15 +59,18 @@ class ExampleTwoPage extends StatefulWidget {
 }
 
 class _ExampleTwoPageState extends State<ExampleTwoPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _counterCwRotationController;
   late Animation<double> _counterCwRotationAnimation;
+
+  late AnimationController _flipController;
+  late Animation<double> _flipAnimation;
 
   @override
   void initState() {
     _counterCwRotationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 2),
     );
 
     _counterCwRotationAnimation = Tween<double>(
@@ -75,22 +82,79 @@ class _ExampleTwoPageState extends State<ExampleTwoPage>
         curve: Curves.bounceOut,
       ),
     );
+
+    //flip
+    _flipController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+
+    _flipAnimation = Tween<double>(
+      begin: 0,
+      end: pi,
+    ).animate(
+      CurvedAnimation(
+        parent: _flipController,
+        curve: Curves.bounceOut,
+      ),
+    );
+
+    //stat listener
+
+    _counterCwRotationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _flipAnimation = Tween<double>(
+          begin: _flipAnimation.value,
+          end: _flipAnimation.value + pi,
+        ).animate(
+          CurvedAnimation(
+            parent: _flipController,
+            curve: Curves.bounceOut,
+          ),
+        );
+
+        _flipController
+          ..reset()
+          ..forward();
+      }
+    });
+
+    _flipController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _counterCwRotationAnimation = Tween<double>(
+          begin: _counterCwRotationAnimation.value,
+          end: _counterCwRotationAnimation.value + -(pi / 2),
+        ).animate(
+          CurvedAnimation(
+            parent: _counterCwRotationController,
+            curve: Curves.bounceOut,
+          ),
+        );
+
+        _counterCwRotationController
+          ..reset()
+          ..forward();
+      }
+    });
+
     super.initState();
   }
 
   @override
   void dispose() {
     _counterCwRotationController.dispose();
+    _flipController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 1), () {
-      _counterCwRotationController
-        ..reset()
-        ..forward();
-    });
+    _counterCwRotationController
+      ..reset()
+      ..forward.delayed(
+        const Duration(seconds: 1),
+      );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Animation two'),
@@ -109,40 +173,60 @@ class _ExampleTwoPageState extends State<ExampleTwoPage>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ClipPath(
-                      clipper: const HalfClipper(side: CircleSide.left),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: const Color(0xff0057b7),
-                        child: const Align(
+                    AnimatedBuilder(
+                      animation: _flipController,
+                      builder: (context, child) {
+                        return Transform(
                           alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              '1',
-                              style: TextStyle(color: Colors.white),
+                          transform: Matrix4.identity()
+                            ..rotateY(_flipAnimation.value),
+                          child: ClipPath(
+                            clipper: const HalfClipper(side: CircleSide.left),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: const Color(0xff0057b7),
+                              child: const Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '1',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
-                    ClipPath(
-                      clipper: const HalfClipper(side: CircleSide.right),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        color: const Color(0xffffd700),
-                        child: const Align(
+                    AnimatedBuilder(
+                      animation: _flipController,
+                      builder: (context, child) {
+                        return Transform(
                           alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              '2',
+                          transform: Matrix4.identity()
+                            ..rotateY(_flipAnimation.value),
+                          child: ClipPath(
+                            clipper: const HalfClipper(side: CircleSide.right),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: const Color(0xffffd700),
+                              child: const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '2',
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),
