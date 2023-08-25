@@ -1,4 +1,4 @@
-import 'package:animation_practice/pages/example_one_page.dart';
+import 'package:animation_practice/pages/home_page.dart';
 import 'package:animation_practice/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const AnimationOnePage(),
-      initialRoute: ExampleOnePage.routeName,
+      initialRoute: HomePage.routeName,
       routes: AppRoute.routes,
     );
   }
