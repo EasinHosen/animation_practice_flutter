@@ -1,3 +1,4 @@
+import 'package:animation_practice/pages/example_six_page.dart';
 import 'package:flutter/material.dart';
 
 class ExampleFivePage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _ExampleFivePageState extends State<ExampleFivePage> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  // Navigator.pushNamed(context, ExampleTwoPage.routeName);
+                  Navigator.pushNamed(context, ExampleSixPage.routeName);
                 },
                 child: const Text('Next'))
           ],

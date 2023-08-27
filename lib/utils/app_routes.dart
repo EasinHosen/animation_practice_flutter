@@ -1,5 +1,6 @@
 import 'package:animation_practice/pages/example_five_page.dart';
 import 'package:animation_practice/pages/example_four_page2.dart';
+import 'package:animation_practice/pages/example_six_page.dart';
 import 'package:animation_practice/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,5 +18,6 @@ class AppRoute {
     ExampleFourPage.routeName: (context) => const ExampleFourPage(),
     ExampleFourPage2.routeName: (context) => const ExampleFourPage2(),
     ExampleFivePage.routeName: (context) => const ExampleFivePage(),
+    ExampleSixPage.routeName: (context) => const ExampleSixPage(),
   };
 }
