@@ -1,3 +1,4 @@
+import 'package:animation_practice/pages/example_eight_page.dart';
 import 'package:animation_practice/pages/example_five_page.dart';
 import 'package:animation_practice/pages/example_four_page.dart';
 import 'package:animation_practice/pages/example_seven_page.dart';
@@ -111,10 +112,10 @@ class HomePage extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomTitledButton(
-                    title: 'Implicit Animation',
+                    title: 'Animated drawer',
                     buttonText: 'Example 8',
                     onPressed: () {
-                      Navigator.pushNamed(context, ExampleFivePage.routeName);
+                      Navigator.pushNamed(context, ExampleEightPage.routeName);
                     },
                   ),
                 ),
