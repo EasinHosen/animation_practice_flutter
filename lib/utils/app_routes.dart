@@ -1,6 +1,7 @@
 import 'package:animation_practice/pages/example_eight_page.dart';
 import 'package:animation_practice/pages/example_five_page.dart';
 import 'package:animation_practice/pages/example_four_page2.dart';
+import 'package:animation_practice/pages/example_nine_page.dart';
 import 'package:animation_practice/pages/example_seven_page.dart';
 import 'package:animation_practice/pages/example_six_page.dart';
 import 'package:animation_practice/pages/home_page.dart';
@@ -23,5 +24,6 @@ class AppRoute {
     ExampleSixPage.routeName: (context) => const ExampleSixPage(),
     ExampleSevenPage.routeName: (context) => const ExampleSevenPage(),
     ExampleEightPage.routeName: (context) => const ExampleEightPage(),
+    ExampleNinePage.routeName: (context) => const ExampleNinePage(),
   };
 }

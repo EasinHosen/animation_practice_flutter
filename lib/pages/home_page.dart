@@ -1,6 +1,7 @@
 import 'package:animation_practice/pages/example_eight_page.dart';
 import 'package:animation_practice/pages/example_five_page.dart';
 import 'package:animation_practice/pages/example_four_page.dart';
+import 'package:animation_practice/pages/example_nine_page.dart';
 import 'package:animation_practice/pages/example_seven_page.dart';
 import 'package:animation_practice/pages/example_six_page.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomTitledButton(
-                    title: 'Implicit Animation',
+                    title: 'Zoom In-out',
                     buttonText: 'Example 5',
                     onPressed: () {
                       Navigator.pushNamed(context, ExampleFivePage.routeName);
@@ -87,7 +88,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomTitledButton(
-                    title: 'Implicit Animation',
+                    title: 'Color changing',
                     buttonText: 'Example 6',
                     onPressed: () {
                       Navigator.pushNamed(context, ExampleSixPage.routeName);
@@ -121,10 +122,10 @@ class HomePage extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomTitledButton(
-                    title: 'Explicit Animation',
+                    title: 'Animated Prompt',
                     buttonText: 'Example 9',
                     onPressed: () {
-                      Navigator.pushNamed(context, ExampleSixPage.routeName);
+                      Navigator.pushNamed(context, ExampleNinePage.routeName);
                     },
                   ),
                 ),
